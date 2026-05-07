@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+
+body {
+    font-family: 'Rajdhani', sans-serif; /* Technological font */
+    display: flex;
+    justify-content: center;
+    background-color: #0b0c10; /* Very dark background */
+    color: #c5c6c7; /* Light gray text */
+    margin: 0;
+    padding: 20px;
+    /* Prevent scrollbar jumps when animating pieces from top */
+    overflow-y: scroll;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Frosted glass effect for the board */
+.board {
+    display: flex;
+    gap: 8px;
+    background: rgba(31, 40, 51, 0.6);
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    width: fit-content;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    max-width: 95vw;
+    overflow-x: auto;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 40px;
+    transition: background 0.2s;
+    /* This prevents falling pieces from creating page overflow */
+    overflow: hidden;
+}
+
+.column:hover {
+    background: rgba(255, 255, 255, 0.05); /* Light column highlight on hover */
+}
+
+/* Cells are dark holes with inner shadow */
+.cell {
+    width: clamp(32px, 7vw, 60px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #050608;
+    box-shadow: inset 0 6px 12px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.05);
+    transition: background 0.3s;
+}
+
+/* Neon pieces */
+.cell.red {
+    background: #00f0ff;
+}
+.cell.yellow {
+    background: #ff003c;
+}
+
+.cell.falling {
+    /* Changed animation timing to look like standard gravity */
+    animation: neon-fall 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes neon-fall {
+    from { transform: translateY(-500px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes neon-pulse {
+    from { filter: brightness(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.2)); }
+    to   { filter: brightness(1.5) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
+}
+
+/* Dimming losing pieces */
+.dimmed {
+    opacity: 0.15;
+    filter: grayscale(100%);
+    box-shadow: inset 0 6px 12px rgba(0,0,0,0.8); /* Remove neon glow */
+    transition: all 0.5s ease;
+}
+
+/* Tech button */
+.btn-new-game {
+    background: transparent;
+    color: #00f0ff;
+    border: 2px solid #00f0ff;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.btn-new-game:hover {
+    background: rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.btn-new-game:active {
+    transform: scale(0.95);
+}
+
+/* Config panel */
+.config-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding: 15px 25px;
+    background: rgba(31, 40, 51, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Range inputs */
+input[type=range] {
+    accent-color: #00f0ff;
+    background: transparent;
+}
+
+/* Add the new status bar class we created earlier */
+.status-bar {
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* New class for the bottom layout container */
+.bottom-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
